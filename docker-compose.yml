@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  producer:
+    container_name: producer
+    environment:
+      - SPRING_PROFILES_ACTIVE=localstack
+    build:
+      context: producer
+      dockerfile: Dockerfile
+    image: carbonawareproducer:latest
+    depends_on:
+      - localstack
+    networks:
+      - my-network
+
+  consumer:
+    container_name: consumer
+    environment:
+      - SPRING_PROFILES_ACTIVE=localstack
+    build:
+      context: consumer
+      dockerfile: Dockerfile
+    image: carbonawareconsumer:latest
+    depends_on:
+      - localstack
+    networks:
+      - my-network
+
+  localstack:
+    container_name: localstack
+    environment:
+      - DEBUG=1
+      - LOCALSTACK_HOSTNAME=localhost
+      - TEST_AWS_ACCOUNT_ID=000000000000
+      - AWS_DEFAULT_REGION=eu-west-1
+      - DEFAULT_REGION=eu-west-1
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - DATA_DIR=/tmp/localstack/data
+      - KINESIS_STREAM_SHARDS=1
+      - KINESIS_ERROR_PROBABILITY=0.0
+      - KINESIS_STREAM_NAME=kinesis-stream
+      - KINESIS_PROVIDER=kinesalite
+    image: localstack/localstack:latest
+    ports:
+      - "4566:4566"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - my-network
+networks:
+  my-network:
+    driver: bridge
