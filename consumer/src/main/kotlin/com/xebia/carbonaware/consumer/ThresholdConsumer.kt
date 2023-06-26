@@ -5,12 +5,13 @@ import com.xebia.carbonaware.consumer.queue.QueueService
 import com.xebia.carbonaware.consumer.task.TaskProcessor
 import org.slf4j.LoggerFactory
 import org.springframework.scheduling.annotation.Scheduled
+import org.springframework.stereotype.Component
 import java.util.concurrent.TimeUnit
 
 /**
  * Strategy 1: Only consume messages when carbon intensity is below a certain threshold.
  */
-//@Component
+@Component
 class ThresholdConsumer(
     val taskProcessor: TaskProcessor,
     val carbonIntensityService: CarbonIntensityService,
