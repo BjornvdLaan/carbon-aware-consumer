@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service
 
 
 @Service
-class QueueService(private val amazonSQS: AmazonSQS, @Value("\${aws.base-url}\${aws.queue.url}") private val queueUrl: String) {
+class QueueService(
+    private val amazonSQS: AmazonSQS,
+    @Value("\${aws.base-url}\${aws.queue.url}") private val queueUrl: String
+) {
     fun receiveTask(): Task? {
         val message = receiveMessage()
         return if (message != null) {
