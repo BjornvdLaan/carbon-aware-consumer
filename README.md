@@ -1,6 +1,6 @@
 # Carbon Aware Consumer Demo using CarbonAwareSDK
 CarbonAwareSDK helps us retrieve information about the carbon intensity (gCO2/kwh) in a certain time and place.
-This repo contains an example project where we use this API to build two carbon aware consumers.
+This repo contains an example project where we use this API to build three carbon-aware consumers.
 
 ## Project setup
 
